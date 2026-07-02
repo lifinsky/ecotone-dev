@@ -3,6 +3,15 @@
 All notable changes to Ecotone will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.319.0] - 2026-07-02
+
+## What's Changed
+* fix: executionTimeLimit no longer blocks graceful shutdown by @dgafka in https://github.com/ecotoneframework/ecotone-dev/pull/680
+* fix: prevent OpenTelemetry scope leaks masking original exceptions by @dgafka in https://github.com/ecotoneframework/ecotone-dev/pull/681
+
+
+**Full Changelog**: https://github.com/ecotoneframework/ecotone-dev/compare/1.318.0...1.319.0
+
 ## [1.318.0] - 2026-07-02
 
 ## What's Changed
