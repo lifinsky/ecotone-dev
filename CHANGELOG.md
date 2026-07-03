@@ -3,6 +3,14 @@
 All notable changes to Ecotone will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.320.0] - 2026-07-03
+
+## What's Changed
+* feat: support closures in attributes and closure expressions (Enterprise) by @dgafka in https://github.com/ecotoneframework/ecotone-dev/pull/678
+
+
+**Full Changelog**: https://github.com/ecotoneframework/ecotone-dev/compare/1.319.0...1.320.0
+
 ## [1.319.0] - 2026-07-02
 
 ## What's Changed
