@@ -3,6 +3,15 @@
 All notable changes to Ecotone will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.320.1] - 2026-07-20
+
+## What's Changed
+* allow mixed type for configurationVariables in ecotone lite by @tandev in https://github.com/ecotoneframework/ecotone-dev/pull/682
+* feat: inject attributes declared on handler into closure expressions (Enterprise) by @dgafka in https://github.com/ecotoneframework/ecotone-dev/pull/685
+
+
+**Full Changelog**: https://github.com/ecotoneframework/ecotone-dev/compare/1.320.0...1.320.1
+
 ## [1.320.0] - 2026-07-03
 
 ## What's Changed
