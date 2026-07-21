@@ -81,14 +81,15 @@ final class ConsoleCommandProxyGenerator
         $className = $this->buildClassName($commandName);
         $filePath = $outputDirectory . DIRECTORY_SEPARATOR . $className . '.php';
 
-        file_put_contents($filePath, $this->buildProxyClassCode($className, $commandName));
+        file_put_contents($filePath, $this->buildProxyClassCode($className, $commandName, $configuration->getDescription()));
 
         return $filePath;
     }
 
-    private function buildProxyClassCode(string $className, string $commandName): string
+    private function buildProxyClassCode(string $className, string $commandName, string $description): string
     {
         $escapedCommandName = addslashes($commandName);
+        $escapedDescription = addslashes($description);
 
         return <<<PHP
             <?php
@@ -99,7 +100,10 @@ final class ConsoleCommandProxyGenerator
 
             use Ecotone\Messaging\Config\ConfiguredMessagingSystem;
             use Ecotone\Messaging\Config\ConsoleCommandResultSet;
+            use Ecotone\Messaging\Console\ConsoleWriter;
+            use Ecotone\Messaging\Console\DelegatingConsoleWriter;
             use Ecotone\Messaging\Gateway\ConsoleCommandRunner;
+            use Ecotone\Tempest\TempestConsoleWriter;
             use Tempest\Console\Console;
             use Tempest\Console\ConsoleCommand;
             use Tempest\Console\ExitCode;
@@ -120,7 +124,7 @@ final class ConsoleCommandProxyGenerator
                 #[Inject]
                 private readonly Console \$console;
 
-                #[ConsoleCommand(name: '{$escapedCommandName}', allowDynamicArguments: true)]
+                #[ConsoleCommand(name: '{$escapedCommandName}', description: '{$escapedDescription}', allowDynamicArguments: true)]
                 public function __invoke(): ExitCode
                 {
                     \$runner = \$this->messagingSystem->getGatewayByName(ConsoleCommandRunner::class);
@@ -128,12 +132,15 @@ final class ConsoleCommandProxyGenerator
                     foreach (\$this->argumentBag->all() as \$arg) {
                         \$allArgs[\$arg->name !== null ? \$arg->name : ''] = \$arg->value;
                     }
-                    \$result = \$runner->execute('{$escapedCommandName}', \$allArgs);
+                    /** @var DelegatingConsoleWriter \$delegatingWriter */
+                    \$delegatingWriter = \$this->messagingSystem->getServiceFromContainer(ConsoleWriter::class);
+                    \$writer = new TempestConsoleWriter(\$this->console);
+                    \$result = \$delegatingWriter->executeWith(
+                        \$writer,
+                        fn () => \$runner->execute('{$escapedCommandName}', \$allArgs)
+                    );
                     if (\$result instanceof ConsoleCommandResultSet) {
-                        \$this->console->writeln(implode(' | ', \$result->getColumnHeaders()));
-                        foreach (\$result->getRows() as \$row) {
-                            \$this->console->writeln(implode(' | ', \$row));
-                        }
+                        \$writer->table(\$result->getColumnHeaders(), \$result->getRows());
                     }
                     return ExitCode::SUCCESS;
                 }
