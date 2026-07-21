@@ -3,6 +3,14 @@
 All notable changes to Ecotone will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.321.0] - 2026-07-21
+
+## What's Changed
+* feat: support console formatting, progress bars and command descriptions across frameworks by @dgafka in https://github.com/ecotoneframework/ecotone-dev/pull/687
+
+
+**Full Changelog**: https://github.com/ecotoneframework/ecotone-dev/compare/1.320.1...1.321.0
+
 ## [1.320.1] - 2026-07-20
 
 ## What's Changed
