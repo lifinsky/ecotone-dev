@@ -6,6 +6,7 @@ namespace Test\Ecotone\SymfonyContainer;
 
 use Ecotone\SymfonyContainer\ResilientDumpedContainer;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
@@ -44,7 +45,7 @@ final class DiscardsHalfBuiltServicesTest extends TestCase
     public function test_resolution_succeeds_and_is_memoized_when_the_wiring_is_complete(): void
     {
         $container = $this->dumpedCircularGraph();
-        $container->set('missing.external', new \stdClass());
+        $container->set('missing.external', new stdClass());
 
         $bus = $container->get('bus');
 
@@ -76,7 +77,7 @@ final class DiscardsHalfBuiltServicesTest extends TestCase
             ->setPublic(true)
             ->setArguments([new Reference('channel'), new Reference('missing.external')]);
 
-        $builder->register('missing.external', \stdClass::class)
+        $builder->register('missing.external', stdClass::class)
             ->setPublic(true)
             ->setSynthetic(true);
 

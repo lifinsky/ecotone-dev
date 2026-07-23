@@ -14,6 +14,7 @@ use Ecotone\Messaging\Gateway\ConsoleCommandRunner;
 use Ecotone\Tempest\ConsoleCommandProxyGenerator;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use RuntimeException;
 use Tempest\Console\Console;
 use Tempest\Console\Input\ConsoleArgumentBag;
 
@@ -102,7 +103,7 @@ final class ConsoleProxyArgumentMappingTest extends TestCase
 
     private function nullWriter(): ConsoleWriter
     {
-        return new class implements ConsoleWriter {
+        return new class () implements ConsoleWriter {
             public function write(string $message): void
             {
             }
@@ -133,7 +134,7 @@ final class ConsoleProxyArgumentMappingTest extends TestCase
 
             public function progressBar(int $maxSteps = 0): ConsoleProgressBar
             {
-                throw new \RuntimeException('not needed');
+                throw new RuntimeException('not needed');
             }
         };
     }

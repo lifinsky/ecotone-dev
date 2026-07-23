@@ -7,6 +7,7 @@ namespace Test\Ecotone\Tempest\Hardening;
 use Ecotone\Tempest\Config\PDO\TempestDynamicDriverConnection;
 use PDO;
 use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 use Tempest\Container\GenericContainer;
 use Tempest\Database\Config\SQLiteConfig;
 use Tempest\Database\Connection\Connection;
@@ -97,7 +98,7 @@ final class DynamicDriverTransactionPinningTest extends TestCase
 
     private function pdoOf(PDOConnection $connection): PDO
     {
-        $property = new \ReflectionProperty($connection, 'pdo');
+        $property = new ReflectionProperty($connection, 'pdo');
 
         return $property->getValue($connection);
     }

@@ -11,7 +11,10 @@ use Ecotone\Messaging\Handler\DestinationResolutionException;
 use Ecotone\Tempest\EcotoneConfig;
 use Ecotone\Tempest\EcotoneServiceInitializer;
 use Ecotone\Tempest\MessagingSystemInitializer;
+use FilesystemIterator;
 use PHPUnit\Framework\TestCase;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Tempest\Container\GenericContainer;
 
 /**
@@ -136,9 +139,9 @@ final class ProductionCacheInvalidationTest extends TestCase
             return;
         }
 
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($this->cacheDirectory, \FilesystemIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::CHILD_FIRST,
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($this->cacheDirectory, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST,
         );
 
         foreach ($iterator as $file) {

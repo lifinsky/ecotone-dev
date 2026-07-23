@@ -27,7 +27,7 @@ final class FactoryRegistrationProvider extends ServiceProvider
         $this->app->bind(MissingServiceContract::class, function (): MissingServiceContract {
             self::$factoryInvoked = true;
 
-            return new class implements MissingServiceContract {
+            return new class () implements MissingServiceContract {
             };
         });
     }

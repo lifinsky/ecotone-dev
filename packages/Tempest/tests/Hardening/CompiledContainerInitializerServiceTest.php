@@ -10,7 +10,10 @@ use Ecotone\Messaging\Config\ModulePackageList;
 use Ecotone\Tempest\EcotoneConfig;
 use Ecotone\Tempest\EcotoneServiceInitializer;
 use Ecotone\Tempest\MessagingSystemInitializer;
+use FilesystemIterator;
 use PHPUnit\Framework\TestCase;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Tempest\Container\GenericContainer;
 use Test\Ecotone\Tempest\Hardening\Fixture\InitializerService\GreetingServiceInitializer;
 
@@ -90,9 +93,9 @@ final class CompiledContainerInitializerServiceTest extends TestCase
             return;
         }
 
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($this->cacheDirectory, \FilesystemIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::CHILD_FIRST,
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($this->cacheDirectory, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST,
         );
 
         foreach ($iterator as $file) {

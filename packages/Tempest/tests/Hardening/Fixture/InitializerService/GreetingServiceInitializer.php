@@ -17,7 +17,7 @@ final class GreetingServiceInitializer implements Initializer
 {
     public function initialize(Container $container): GreetingService
     {
-        return new class implements GreetingService {
+        return new class () implements GreetingService {
             public function greet(string $name): string
             {
                 return 'Hello ' . $name;

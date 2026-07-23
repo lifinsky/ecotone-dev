@@ -50,7 +50,7 @@ final class ExternalReferenceRuntimeFailureTest extends TestCase
     {
         $container = new RecordingPsrContainer([
             RuntimeCheckedHandler::class => fn () => new RuntimeCheckedHandler(),
-            RuntimeCheckedCollaborator::class => fn () => new class implements RuntimeCheckedCollaborator {
+            RuntimeCheckedCollaborator::class => fn () => new class () implements RuntimeCheckedCollaborator {
             },
         ]);
 

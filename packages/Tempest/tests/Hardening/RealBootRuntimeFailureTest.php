@@ -6,12 +6,15 @@ namespace Test\Ecotone\Tempest\Hardening;
 
 use const DIRECTORY_SEPARATOR;
 
+use Ecotone\Messaging\Config\ModulePackageList;
 use Ecotone\Modelling\CommandBus;
 use Ecotone\Tempest\EcotoneConfig;
 use Ecotone\Tempest\EcotoneServiceInitializer;
 use Ecotone\Tempest\MessagingSystemInitializer;
-use Ecotone\Messaging\Config\ModulePackageList;
+use FilesystemIterator;
 use PHPUnit\Framework\TestCase;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Tempest\Core\FrameworkKernel;
 use Tempest\Core\KernelEvent;
 use Tempest\Discovery\AutoloadDiscoveryLocations;
@@ -173,9 +176,9 @@ final class RealBootRuntimeFailureTest extends TestCase
             return;
         }
 
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($this->cacheDirectory, \FilesystemIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::CHILD_FIRST,
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($this->cacheDirectory, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST,
         );
 
         foreach ($iterator as $file) {
