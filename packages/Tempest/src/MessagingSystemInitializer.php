@@ -59,7 +59,7 @@ final class MessagingSystemInitializer implements Initializer
         $config = $this->resolveEcotoneConfig($container);
         $rootPath = getcwd();
         $cacheDirectory = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'ecotone_tempest';
-        $environment = getenv('APP_ENV') ?: 'production';
+        $environment = getenv('APP_ENV') ?: (getenv('ENVIRONMENT') ?: 'production');
         $useProductionCache = in_array($environment, ['prod', 'production'], true) ? true : $config->cacheConfiguration;
 
         $applicationConfiguration = $this->buildServiceConfiguration($config, $environment, $cacheDirectory, $container);
@@ -164,7 +164,7 @@ final class MessagingSystemInitializer implements Initializer
                 new TempestConfigurationVariableService(),
                 $externalContainer,
             );
-            if ($ecotoneContainer) {
+            if ($ecotoneContainer !== null) {
                 return [$ecotoneContainer, $ecotoneContainer->getConfigHash()];
             }
         }

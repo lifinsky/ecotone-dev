@@ -48,7 +48,8 @@
         "psr-4": {
             "Test\\Ecotone\\Laravel\\": "tests",
             "App\\MultiTenant\\": "tests/MultiTenant/app",
-            "App\\Licence\\Laravel\\": "tests/Licence/app"
+            "App\\Licence\\Laravel\\": "tests/Licence/app",
+            "App\\MissingReference\\Laravel\\": "tests/MissingReference/src"
         }
     },
     "require": {
